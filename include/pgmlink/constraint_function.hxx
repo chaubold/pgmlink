@@ -750,7 +750,7 @@ struct FunctionRegistration< IncomingConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 666
     };
 };
 
@@ -759,7 +759,7 @@ struct FunctionRegistration< IncomingLinearConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 667
     };
 };
 
@@ -768,7 +768,7 @@ struct FunctionRegistration< OutgoingConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 668
     };
 };
 
@@ -777,7 +777,7 @@ struct FunctionRegistration< OutgoingLinearConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 669
     };
 };
 
@@ -786,7 +786,7 @@ struct FunctionRegistration< OutgoingNoDivConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 670
     };
 };
 
@@ -795,7 +795,7 @@ struct FunctionRegistration< OutgoingNoDivLinearConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 671
     };
 };
 
@@ -804,7 +804,7 @@ struct FunctionRegistration< DetectionConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 672
     };
 };
 
@@ -813,7 +813,7 @@ struct FunctionRegistration< DetectionLinearConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 673
     };
 };
 
@@ -822,7 +822,7 @@ struct FunctionRegistration< FixNodeValueConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 674
     };
 };
 
@@ -831,7 +831,7 @@ struct FunctionRegistration< FixNodeValueLinearConstraintFunction<T, I, L> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 675
     };
 };
 
@@ -840,7 +840,7 @@ struct FunctionRegistration< marray::Marray<double> >
 {
     enum ID
     {
-        Id = opengm::FUNCTION_TYPE_ID_OFFSET
+        Id = opengm::FUNCTION_TYPE_ID_OFFSET + 676
     };
 };
 

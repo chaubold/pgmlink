@@ -158,6 +158,7 @@ void ConsTrackingInferenceModel::fixNodesToLabels( HypothesesGraph& g)
 
 void ConsTrackingInferenceModel::save(const std::string& filename)
 {
+    LOG(logINFO) << "Saving model to " << filename;
     // opengm model
     opengm::hdf5::save(model_, filename, "model");
 
@@ -1186,6 +1187,7 @@ void ConsTrackingInferenceModel::conclude( HypothesesGraph& g,
 ConsTrackingInferenceModel::GraphicalModelType ConsTrackingInferenceModel::model(){
     return model_;
 }
+
 ConsTrackingInferenceModel::IlpSolution ConsTrackingInferenceModel::extract_solution_from_graph(
   const HypothesesGraph &g,
   const HypothesesGraph &tracklet_graph,
