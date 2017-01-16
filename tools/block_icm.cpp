@@ -9,7 +9,7 @@
 #include <opengm/inference/icm.hxx>
 // #include <vigra/timing.hxx>
 
-typedef pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel GraphicalModel;
+typedef pgmlink::PertGmType GraphicalModel;
 typedef opengm::LPCplex<GraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> CPLEX;
 typedef std::map<size_t, size_t> IndexMapping;
 typedef std::vector<size_t> Solution;

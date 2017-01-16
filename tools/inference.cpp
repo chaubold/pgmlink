@@ -26,7 +26,8 @@ int main(int argc, char** argv)
     }
 
     // load model and constraints from disk
-    pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel model;
+//    pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel model;
+    pgmlink::PertGmType model;
     opengm::hdf5::load(model, filename_model, "model");
 
     std::ifstream constraint_pool_input(filename_constraints);
@@ -52,11 +53,11 @@ int main(int argc, char** argv)
 
     if(inference_type == "CPLEX")
     {
-        opengm::LPCplex<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param;
+        opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param;
         param.verbose_ = true;
         param.integerConstraint_ = true;
         param.epGap_ = 0.0;
-        opengm::LPCplex<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
+        opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
         cp.add_constraints_to_problem(model, inf);
 
         opengm::InferenceTermination status = inf.infer();
@@ -90,11 +91,11 @@ int main(int argc, char** argv)
     }
     else if(inference_type == "LP")
     {
-        opengm::LPCplex<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param;
+        opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param;
         param.verbose_ = true;
         param.integerConstraint_ = false;
         param.epGap_ = 0.0;
-        opengm::LPCplex<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
+        opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
         cp.add_constraints_to_problem(model, inf);
 
         opengm::InferenceTermination status = inf.infer();
@@ -129,7 +130,7 @@ int main(int argc, char** argv)
     else if(inference_type == "ICM")
     {
         // configure ICM
-        opengm::ICM<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model);
+        opengm::ICM<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model);
         cp.set_big_m(big_m);
         cp.add_constraints_to_problem(model, inf);
 
@@ -153,11 +154,11 @@ int main(int argc, char** argv)
     }
     else if (inference_type == "LP+ICM")
     {
-        opengm::LPCplex<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param;
+        opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param;
         param.verbose_ = true;
         param.integerConstraint_ = false;
         param.epGap_ = 0.0;
-        opengm::LPCplex<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
+        opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
         cp.add_constraints_to_problem(model, inf);
 
         opengm::InferenceTermination status = inf.infer();
@@ -177,8 +178,8 @@ int main(int argc, char** argv)
 
         std::cout << "Value of LP solution: " << inf.value() << std::endl;
 
-        opengm::ICM<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param2(solution);
-        opengm::ICM<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf2(model, param2);
+        opengm::ICM<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator>::Parameter param2(solution);
+        opengm::ICM<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf2(model, param2);
         cp.set_big_m(big_m);
         cp.add_constraints_to_problem(model, inf2);
 
@@ -200,7 +201,7 @@ int main(int argc, char** argv)
     else if(inference_type == "LazyFlip")
     {
         // configure Lazyflip
-        opengm::LazyFlipper<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model);
+        opengm::LazyFlipper<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model);
         cp.set_big_m(big_m);
         cp.add_constraints_to_problem(model, inf);
 
@@ -240,7 +241,7 @@ int main(int argc, char** argv)
     if(inference_type == "CPLEX" || inference_type == "LP")
     {
         std::cout << "Adding constraints" << std::endl;
-        opengm::LazyFlipper<pgmlink::pgm::OpengmModelDeprecated::ogmGraphicalModel, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model);
+        opengm::LazyFlipper<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model);
         cp.set_big_m(big_m);
         cp.add_constraints_to_problem(model, inf);
     }
