@@ -1,4 +1,5 @@
 #include "pgmlink/inferencemodel/constrackinginferencemodel.h"
+#include <opengm/graphicalmodel/graphicalmodel_hdf5.hxx>
 #include <boost/python.hpp>
 #include <iso646.h> // for not, and, or on MSVC
 
@@ -153,6 +154,19 @@ void ConsTrackingInferenceModel::fixNodesToLabels( HypothesesGraph& g)
 
         }
     }
+}
+
+void ConsTrackingInferenceModel::save(const std::string& filename)
+{
+    // opengm model
+    opengm::hdf5::save(model_, filename, "model");
+
+#ifndef NO_ILP
+    // constraint pool
+    std::ofstream cp_out_str(filename + ".cp");
+    boost::archive::text_oarchive oa(cp_out_str);
+    oa & constraint_pool_;
+#endif
 }
 
 

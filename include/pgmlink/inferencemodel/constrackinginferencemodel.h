@@ -82,6 +82,8 @@ public: // API
     PGMLINK_EXPORT void write_labeledgraph_to_file(const HypothesesGraph & g,
                                     const std::string &ground_truth_filename);
 
+    PGMLINK_EXPORT void save(const std::string& filename);
+
     opengm::learning::Weights<double> weights_;
     PGMLINK_EXPORT void setWeight ( size_t, double);
     PGMLINK_EXPORT GraphicalModelType model();
