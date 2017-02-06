@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <chrono>
 #include "pgmlink/pgm.h"
 #include "pgmlink/inferencemodel/constraint_pool.hxx"
 #include <opengm/graphicalmodel/graphicalmodel_hdf5.hxx>
@@ -57,6 +58,7 @@ int main(int argc, char** argv)
         param.verbose_ = true;
         param.integerConstraint_ = true;
         param.epGap_ = 0.0;
+        param.numberOfThreads_ = 1;
         opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
         cp.add_constraints_to_problem(model, inf);
 
@@ -75,17 +77,17 @@ int main(int argc, char** argv)
             throw std::runtime_error("Could not extract solution from CPLEX");
         }
 
-        for(size_t i = 0; i < solution.size(); i++)
-        {
-            opengm::IndependentFactor<double, size_t, size_t> values;
-            inf.variable(i, values);
-            std::cout << "Variable " << i << ": ";
-            for(size_t state = 0; state < model.numberOfLabels(i); state++)
-            {
-                std::cout << "(" << state << ")=" << values(state) << " ";
-            }
-            std::cout << std::endl;
-        }
+//        for(size_t i = 0; i < solution.size(); i++)
+//        {
+//            opengm::IndependentFactor<double, size_t, size_t> values;
+//            inf.variable(i, values);
+//            std::cout << "Variable " << i << ": ";
+//            for(size_t state = 0; state < model.numberOfLabels(i); state++)
+//            {
+//                std::cout << "(" << state << ")=" << values(state) << " ";
+//            }
+//            std::cout << std::endl;
+//        }
 
         solution_value = inf.value();
     }
@@ -95,10 +97,16 @@ int main(int argc, char** argv)
         param.verbose_ = true;
         param.integerConstraint_ = false;
         param.epGap_ = 0.0;
+        param.numberOfThreads_ = 1;
         opengm::LPCplex<pgmlink::PertGmType, pgmlink::pgm::OpengmModelDeprecated::ogmAccumulator> inf(model, param);
         cp.add_constraints_to_problem(model, inf);
 
+        std::chrono::time_point<std::chrono::high_resolution_clock> startTime = std::chrono::high_resolution_clock::now();
         opengm::InferenceTermination status = inf.infer();
+        std::chrono::time_point<std::chrono::high_resolution_clock> endTime = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double> elapsed_seconds = endTime - startTime;
+        std::cout << "Solving the LP relaxation took " << elapsed_seconds.count() << " secs" << std::endl;
 
         if (status != opengm::NORMAL)
         {
@@ -113,18 +121,17 @@ int main(int argc, char** argv)
             throw std::runtime_error("Could not extract solution from CPLEX");
         }
 
+        size_t numIntegralVariables = 0;
         for(size_t i = 0; i < solution.size(); i++)
         {
             opengm::IndependentFactor<double, size_t, size_t> values;
             inf.variable(i, values);
-            std::cout << "Variable " << i << ": ";
-            for(size_t state = 0; state < model.numberOfLabels(i); state++)
-            {
-                std::cout << "(" << state << ")=" << values(state) << " ";
-            }
-            std::cout << std::endl;
+            double v = values(solution[i]);
+            if(v == 0.0 || v == 1.0)
+                numIntegralVariables++;
         }
-
+        std::cout << numIntegralVariables << " variables of " << model.numberOfVariables() << " are integral! "
+                  << 100.0 * float(numIntegralVariables) / model.numberOfVariables() << "%" << std::endl;
         solution_value = inf.value();
     }
     else if(inference_type == "ICM")
