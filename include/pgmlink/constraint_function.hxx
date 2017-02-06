@@ -218,12 +218,12 @@ protected:
             return 0.0;
         }
         else
-            std::cout << "Found invalid config Incoming" << std::endl;
-            std::cout << "\tVariables: ";
-            for(auto v : this->variable_indices_)
-                std::cout << v << " ";
-            std::cout << std::endl;
         {
+//            std::cout << "Found invalid config Incoming" << std::endl;
+//            std::cout << "\tVariables: ";
+//            for(auto v : this->variable_indices_)
+//                std::cout << v << " ";
+//            std::cout << std::endl;
             return this->forbidden_energy_;
         }
     }
@@ -325,12 +325,12 @@ protected:
         }
         else
         {
-            std::cout << "Found invalid configuration for Outgoing" << std::endl;
-            std::cout << "\tVariables: ";
-            for(auto v : this->variable_indices_)
-                std::cout << v << " ";
-            std::cout << std::endl;
-            std::cout << "\tAppearances: " << num_appearing_objects << " \n\tDivision: " << division << std::endl;
+//            std::cout << "Found invalid configuration for Outgoing" << std::endl;
+//            std::cout << "\tVariables: ";
+//            for(auto v : this->variable_indices_)
+//                std::cout << v << " ";
+//            std::cout << std::endl;
+//            std::cout << "\tAppearances: " << num_appearing_objects << " \n\tDivision: " << division << std::endl;
             return this->forbidden_energy_;
         }
     }
@@ -438,11 +438,11 @@ protected:
         }
         else
         {
-            std::cout << "Found invalid config for OutgoingNoDiv" << std::endl;
-            std::cout << "\tVariables: ";
-            for(auto v : this->variable_indices_)
-                std::cout << v << " ";
-            std::cout << std::endl;
+//            std::cout << "Found invalid config for OutgoingNoDiv" << std::endl;
+//            std::cout << "\tVariables: ";
+//            for(auto v : this->variable_indices_)
+//                std::cout << v << " ";
+//            std::cout << std::endl;
             return this->forbidden_energy_;
         }
     }
@@ -547,11 +547,11 @@ protected:
         }
         else
         {
-            std::cout << "Found invalid config for Detection" << std::endl;
-            std::cout << "\tVariables: ";
-            for(auto v : this->variable_indices_)
-                std::cout << v << " ";
-            std::cout << std::endl;
+//            std::cout << "Found invalid config for Detection" << std::endl;
+//            std::cout << "\tVariables: ";
+//            for(auto v : this->variable_indices_)
+//                std::cout << v << " ";
+//            std::cout << std::endl;
             return this->forbidden_energy_;
         }
     }
@@ -659,11 +659,11 @@ protected:
         }
         else
         {
-            std::cout << "Found invalid config for FixNodeValue" << std::endl;
-            std::cout << "\tVariables: ";
-            for(auto v : this->variable_indices_)
-                std::cout << v << " ";
-            std::cout << std::endl;
+//            std::cout << "Found invalid config for FixNodeValue" << std::endl;
+//            std::cout << "\tVariables: ";
+//            for(auto v : this->variable_indices_)
+//                std::cout << v << " ";
+//            std::cout << std::endl;
             return this->forbidden_energy_;
         }
     }
